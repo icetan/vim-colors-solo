@@ -42,70 +42,19 @@ let s:u           = ",underline"
 
 let s:i           = ",italic"
 
-" Highlighting primitives
-exe "let s:bg_none      = ' ".s:vmode."bg=".s:none   ."'"
-exe "let s:bg_back      = ' ".s:vmode."bg=".s:back   ."'"
-exe "let s:bg_base03    = ' ".s:vmode."bg=".s:base03 ."'"
-exe "let s:bg_base02    = ' ".s:vmode."bg=".s:base02 ."'"
-exe "let s:bg_base01    = ' ".s:vmode."bg=".s:base01 ."'"
-exe "let s:bg_base00    = ' ".s:vmode."bg=".s:base00 ."'"
-exe "let s:bg_base0     = ' ".s:vmode."bg=".s:base0  ."'"
-exe "let s:bg_base1     = ' ".s:vmode."bg=".s:base1  ."'"
-exe "let s:bg_base2     = ' ".s:vmode."bg=".s:base2  ."'"
-exe "let s:bg_base3     = ' ".s:vmode."bg=".s:base3  ."'"
-exe "let s:bg_green     = ' ".s:vmode."bg=".s:green  ."'"
-exe "let s:bg_yellow    = ' ".s:vmode."bg=".s:yellow ."'"
-exe "let s:bg_orange    = ' ".s:vmode."bg=".s:orange ."'"
-exe "let s:bg_red       = ' ".s:vmode."bg=".s:red    ."'"
-exe "let s:bg_magenta   = ' ".s:vmode."bg=".s:magenta."'"
-exe "let s:bg_violet    = ' ".s:vmode."bg=".s:violet ."'"
-exe "let s:bg_blue      = ' ".s:vmode."bg=".s:blue   ."'"
-exe "let s:bg_cyan      = ' ".s:vmode."bg=".s:cyan   ."'"
-
-exe "let s:fg_none      = ' ".s:vmode."fg=".s:none   ."'"
-exe "let s:fg_back      = ' ".s:vmode."fg=".s:back   ."'"
-exe "let s:fg_base03    = ' ".s:vmode."fg=".s:base03 ."'"
-exe "let s:fg_base02    = ' ".s:vmode."fg=".s:base02 ."'"
-exe "let s:fg_base01    = ' ".s:vmode."fg=".s:base01 ."'"
-exe "let s:fg_base00    = ' ".s:vmode."fg=".s:base00 ."'"
-exe "let s:fg_base0     = ' ".s:vmode."fg=".s:base0  ."'"
-exe "let s:fg_base1     = ' ".s:vmode."fg=".s:base1  ."'"
-exe "let s:fg_base2     = ' ".s:vmode."fg=".s:base2  ."'"
-exe "let s:fg_base3     = ' ".s:vmode."fg=".s:base3  ."'"
-exe "let s:fg_green     = ' ".s:vmode."fg=".s:green  ."'"
-exe "let s:fg_yellow    = ' ".s:vmode."fg=".s:yellow ."'"
-exe "let s:fg_orange    = ' ".s:vmode."fg=".s:orange ."'"
-exe "let s:fg_red       = ' ".s:vmode."fg=".s:red    ."'"
-exe "let s:fg_magenta   = ' ".s:vmode."fg=".s:magenta."'"
-exe "let s:fg_violet    = ' ".s:vmode."fg=".s:violet ."'"
-exe "let s:fg_blue      = ' ".s:vmode."fg=".s:blue   ."'"
-exe "let s:fg_cyan      = ' ".s:vmode."fg=".s:cyan   ."'"
-
-exe "let s:fmt_none     = ' ".s:vmode."=NONE".          " term=NONE".    "'"
-exe "let s:fmt_bold     = ' ".s:vmode."=NONE".s:b.      " term=NONE".s:b."'"
-exe "let s:fmt_bldi     = ' ".s:vmode."=NONE".s:b.      " term=NONE".s:b."'"
-exe "let s:fmt_undr     = ' ".s:vmode."=NONE".s:u.      " term=NONE".s:u."'"
-exe "let s:fmt_undb     = ' ".s:vmode."=NONE".s:u.s:b.  " term=NONE".s:u.s:b."'"
-exe "let s:fmt_undi     = ' ".s:vmode."=NONE".s:u.      " term=NONE".s:u."'"
-exe "let s:fmt_uopt     = ' ".s:vmode."=NONE".s:ou.     " term=NONE".s:ou."'"
-exe "let s:fmt_curl     = ' ".s:vmode."=NONE".s:c.      " term=NONE".s:c."'"
-exe "let s:fmt_ital     = ' ".s:vmode."=NONE".s:i.      " term=NONE".s:i."'"
-exe "let s:fmt_stnd     = ' ".s:vmode."=NONE".s:s.      " term=NONE".s:s."'"
-exe "let s:fmt_revr     = ' ".s:vmode."=NONE".s:r.      " term=NONE".s:r."'"
-exe "let s:fmt_revb     = ' ".s:vmode."=NONE".s:r.s:b.  " term=NONE".s:r.s:b."'"
-" revbb (reverse bold for bright colors) is only set to actual bold in low
-" color terminals (t_co=8, such as OS X Terminal.app) and should only be used
-" with colors 8-15.
-exe "let s:fmt_revbb    = ' ".s:vmode."=NONE".s:r.s:bb.    " term=NONE".s:r.s:bb."'"
-exe "let s:fmt_revbbu   = ' ".s:vmode."=NONE".s:r.s:bb.s:u." term=NONE".s:r.s:bb.s:u."'"
+function s:style(fmt, fg, bg)
+  return " gui=NONE".a:fmt." cterm=NONE".a:fmt." term=NONE".a:fmt
+      \ ." guifg=".a:fg." ctermfg=".a:fg
+      \ ." guibg=".a:bg." ctermbg=".a:bg
+endfunction
 
 " Basic highlighting
-exe "hi! Normal"         .s:fmt_none   .s:fg_base0  .s:bg_back
+exe "hi! Normal"         .s:style("", s:base0, s:back)
 
-exe "hi! Comment"        .s:fmt_ital   .s:fg_base01 .s:bg_none
+exe "hi! Comment"        .s:style(s:i, s:base01, s:none)
 "       *Comment         any comment
 
-exe "hi! Constant"       .s:fmt_none   .s:fg_cyan   .s:bg_none
+exe "hi! Constant"       .s:style("", s:cyan, s:none)
 "       *Constant        any constant
 "        String          a string constant: "this is a string"
 "        Character       a character constant: 'c', '\n'
@@ -113,11 +62,11 @@ exe "hi! Constant"       .s:fmt_none   .s:fg_cyan   .s:bg_none
 "        Boolean         a boolean constant: TRUE, false
 "        Float           a floating point constant: 2.3e10
 
-exe "hi! Identifier"     .s:fmt_none   .s:fg_blue   .s:bg_none
+exe "hi! Identifier"     .s:style("", s:blue, s:none)
 "       *Identifier      any variable name
 "        Function        function name (also: methods for classes)
 "
-exe "hi! Statement"      .s:fmt_none   .s:fg_green  .s:bg_none
+exe "hi! Statement"      .s:style("", s:green, s:none)
 "       *Statement       any statement
 "        Conditional     if, then, else, endif, switch, etc.
 "        Repeat          for, do, while, etc.
@@ -126,20 +75,20 @@ exe "hi! Statement"      .s:fmt_none   .s:fg_green  .s:bg_none
 "        Keyword         any other keyword
 "        Exception       try, catch, throw
 
-exe "hi! PreProc"        .s:fmt_none   .s:fg_orange .s:bg_none
+exe "hi! PreProc"        .s:style("", s:orange, s:none)
 "       *PreProc         generic Preprocessor
 "        Include         preprocessor #include
 "        Define          preprocessor #define
 "        Macro           same as Define
 "        PreCondit       preprocessor #if, #else, #endif, etc.
 
-exe "hi! Type"           .s:fmt_none   .s:fg_yellow .s:bg_none
+exe "hi! Type"           .s:style("", s:yellow, s:none)
 "       *Type            int, long, char, etc.
 "        StorageClass    static, register, volatile, etc.
 "        Structure       struct, union, enum, etc.
 "        Typedef         A typedef
 
-exe "hi! Special"        .s:fmt_none   .s:fg_red    .s:bg_none
+exe "hi! Special"        .s:style("", s:red, s:none)
 "       *Special         any special symbol
 "        SpecialChar     special character in a constant
 "        Tag             you can use CTRL-] on this
@@ -147,63 +96,63 @@ exe "hi! Special"        .s:fmt_none   .s:fg_red    .s:bg_none
 "        SpecialComment  special things inside a comment
 "        Debug           debugging statements
 
-exe "hi! Underlined"     .s:fmt_none   .s:fg_violet .s:bg_none
+exe "hi! Underlined"     .s:style("", s:violet, s:none)
 "       *Underlined      text that stands out, HTML links
 
-exe "hi! Ignore"         .s:fmt_none   .s:fg_none   .s:bg_none
+exe "hi! Ignore"         .s:style("", s:none, s:none)
 "       *Ignore          left blank, hidden  |hl-Ignore|
 
-exe "hi! Error"          .s:fmt_bold   .s:fg_red    .s:bg_none
+exe "hi! Error"          .s:style(s:b, s:red, s:none)
 "       *Error           any erroneous construct
 
-exe "hi! Todo"           .s:fmt_bold   .s:fg_magenta.s:bg_none
+exe "hi! Todo"           .s:style(s:b, s:magenta, s:none)
 "       *Todo            anything that needs extra attention; mostly the
 "                        keywords TODO FIXME and XXX
 
-" Extended highlighting
-exe "hi! SpecialKey"     .s:fmt_bold   .s:fg_base00 .s:bg_base02
-exe "hi! NonText"        .s:fmt_bold   .s:fg_base00 .s:bg_none
-exe "hi! StatusLine"     .s:fmt_none   .s:fg_base1  .s:bg_base02  .s:fmt_revbb
-exe "hi! StatusLineNC"   .s:fmt_none   .s:fg_base00 .s:bg_base02  .s:fmt_revbb
-exe "hi! Visual"         .s:fmt_none   .s:fg_none   .s:bg_base2
-exe "hi! Directory"      .s:fmt_none   .s:fg_blue   .s:bg_none
-exe "hi! ErrorMsg"       .s:fmt_revr   .s:fg_red    .s:bg_none
-exe "hi! IncSearch"      .s:fmt_stnd   .s:fg_orange .s:bg_none
-exe "hi! Search"         .s:fmt_revr   .s:fg_yellow .s:bg_none
-exe "hi! MoreMsg"        .s:fmt_none   .s:fg_blue   .s:bg_none
-exe "hi! ModeMsg"        .s:fmt_none   .s:fg_blue   .s:bg_none
-exe "hi! LineNr"         .s:fmt_none   .s:fg_base01 .s:bg_base02
-exe "hi! Question"       .s:fmt_bold   .s:fg_cyan   .s:bg_none
-exe "hi! VertSplit"      .s:fmt_revbb  .s:fg_base00 .s:bg_base02
-exe "hi! Title"          .s:fmt_bold   .s:fg_orange .s:bg_none
-exe "hi! VisualNOS"      .s:fmt_stnd   .s:fg_none   .s:bg_base02  .s:fmt_revbb
-exe "hi! WarningMsg"     .s:fmt_bold   .s:fg_red    .s:bg_none
-exe "hi! WildMenu"       .s:fmt_none   .s:fg_base2  .s:bg_base02  .s:fmt_revbb
-exe "hi! Folded"         .s:fmt_undb   .s:fg_base0  .s:bg_base02
-exe "hi! FoldColumn"     .s:fmt_none   .s:fg_base0  .s:bg_base02
-exe "hi! DiffAdd"        .s:fmt_none   .s:fg_green  .s:bg_base02
-exe "hi! DiffChange"     .s:fmt_none   .s:fg_yellow .s:bg_base02
-exe "hi! DiffDelete"     .s:fmt_none   .s:fg_red    .s:bg_base02
-exe "hi! DiffText"       .s:fmt_none   .s:fg_blue   .s:bg_base02
-exe "hi! SignColumn"     .s:fmt_none   .s:fg_base0
-exe "hi! Conceal"        .s:fmt_none   .s:fg_blue   .s:bg_none
-exe "hi! SpellBad"       .s:fmt_curl   .s:fg_none   .s:bg_none
-exe "hi! SpellCap"       .s:fmt_curl   .s:fg_none   .s:bg_none
-exe "hi! SpellRare"      .s:fmt_curl   .s:fg_none   .s:bg_none
-exe "hi! SpellLocal"     .s:fmt_curl   .s:fg_none   .s:bg_none
-exe "hi! Pmenu"          .s:fmt_none   .s:fg_base0  .s:bg_base02  .s:fmt_revbb
-exe "hi! PmenuSel"       .s:fmt_none   .s:fg_base01 .s:bg_base2   .s:fmt_revbb
-exe "hi! PmenuSbar"      .s:fmt_none   .s:fg_base2  .s:bg_base0   .s:fmt_revbb
-exe "hi! PmenuThumb"     .s:fmt_none   .s:fg_base0  .s:bg_base03  .s:fmt_revbb
-exe "hi! TabLine"        .s:fmt_undr   .s:fg_base0  .s:bg_base02
-exe "hi! TabLineFill"    .s:fmt_undr   .s:fg_base0  .s:bg_base02
-exe "hi! TabLineSel"     .s:fmt_undr   .s:fg_base01 .s:bg_base2   .s:fmt_revbbu
-exe "hi! CursorColumn"   .s:fmt_none   .s:fg_none   .s:bg_base02
-exe "hi! CursorLine"     .s:fmt_uopt   .s:fg_none   .s:bg_base02
-exe "hi! ColorColumn"    .s:fmt_none   .s:fg_none   .s:bg_base02
-exe "hi! Cursor"         .s:fmt_none   .s:fg_base03 .s:bg_base0
+" Extended highlighting)
+exe "hi! SpecialKey"     .s:style(s:b          ,s:base00 ,s:base02)
+exe "hi! NonText"        .s:style(s:b          ,s:base00 ,s:none)
+exe "hi! StatusLine"     .s:style(s:r.s:bb     ,s:base1  ,s:base02)
+exe "hi! StatusLineNC"   .s:style(s:r.s:bb     ,s:base00 ,s:base02)
+exe "hi! Visual"         .s:style(""           ,s:none   ,s:base2)
+exe "hi! Directory"      .s:style(""           ,s:blue   ,s:none)
+exe "hi! ErrorMsg"       .s:style(s:r          ,s:red    ,s:none)
+exe "hi! IncSearch"      .s:style(s:s          ,s:orange ,s:none)
+exe "hi! Search"         .s:style(s:r          ,s:yellow ,s:none)
+exe "hi! MoreMsg"        .s:style(""           ,s:blue   ,s:none)
+exe "hi! ModeMsg"        .s:style(""           ,s:blue   ,s:none)
+exe "hi! LineNr"         .s:style(""           ,s:base01 ,s:base02)
+exe "hi! Question"       .s:style(s:b          ,s:cyan   ,s:none)
+exe "hi! VertSplit"      .s:style(s:r.s:bb     ,s:base00 ,s:base02)
+exe "hi! Title"          .s:style(s:b          ,s:orange ,s:none)
+exe "hi! VisualNOS"      .s:style(s:s          ,s:none   ,s:base02)
+exe "hi! WarningMsg"     .s:style(s:b          ,s:red    ,s:none)
+exe "hi! WildMenu"       .s:style(s:r.s:bb     ,s:base2  ,s:base02)
+exe "hi! Folded"         .s:style(s:u.s:b      ,s:base0  ,s:base02)
+exe "hi! FoldColumn"     .s:style(""           ,s:base0  ,s:base02)
+exe "hi! DiffAdd"        .s:style(""           ,s:green  ,s:base02)
+exe "hi! DiffChange"     .s:style(""           ,s:yellow ,s:base02)
+exe "hi! DiffDelete"     .s:style(""           ,s:red    ,s:base02)
+exe "hi! DiffText"       .s:style(""           ,s:blue   ,s:base02)
+exe "hi! SignColumn"     .s:style(""           ,s:base0  ,s:none)
+exe "hi! Conceal"        .s:style(""           ,s:blue   ,s:none)
+exe "hi! SpellBad"       .s:style(s:c          ,s:none   ,s:none)
+exe "hi! SpellCap"       .s:style(s:c          ,s:none   ,s:none)
+exe "hi! SpellRare"      .s:style(s:c          ,s:none   ,s:none)
+exe "hi! SpellLocal"     .s:style(s:c          ,s:none   ,s:none)
+exe "hi! Pmenu"          .s:style(s:r.s:bb     ,s:base0  ,s:base02)
+exe "hi! PmenuSel"       .s:style(s:r.s:bb     ,s:base01 ,s:base2)
+exe "hi! PmenuSbar"      .s:style(s:r.s:bb     ,s:base2  ,s:base0)
+exe "hi! PmenuThumb"     .s:style(s:r.s:bb     ,s:base0  ,s:base03)
+exe "hi! TabLine"        .s:style(s:u          ,s:base0  ,s:base02)
+exe "hi! TabLineFill"    .s:style(s:u          ,s:base0  ,s:base02)
+exe "hi! TabLineSel"     .s:style(s:r.s:bb     ,s:base01 ,s:base2)
+exe "hi! CursorColumn"   .s:style(""           ,s:none   ,s:base02)
+exe "hi! CursorLine"     .s:style(s:ou         ,s:none   ,s:base02)
+exe "hi! ColorColumn"    .s:style(""           ,s:none   ,s:base02)
+exe "hi! Cursor"         .s:style(""           ,s:base03 ,s:base0)
 hi! link lCursor Cursor
-exe "hi! MatchParen"     .s:fmt_bold   .s:fg_red    .s:bg_base01
+exe "hi! MatchParen"     .s:style(s:b          ,s:red    ,s:base01)
 
 " vim syntax highlighting
 hi! link vimVar Identifier
@@ -212,21 +161,21 @@ hi! link vimUserFunc Function
 hi! link helpSpecial Special
 hi! link vimSet Normal
 hi! link vimSetEqual Normal
-exe "hi! vimCommentString"  .s:fmt_none    .s:fg_violet .s:bg_none
-exe "hi! vimCommand"        .s:fmt_none    .s:fg_yellow .s:bg_none
-exe "hi! vimCmdSep"         .s:fmt_bold    .s:fg_blue   .s:bg_none
-exe "hi! helpExample"       .s:fmt_none    .s:fg_base1  .s:bg_none
-exe "hi! helpOption"        .s:fmt_none    .s:fg_cyan   .s:bg_none
-exe "hi! helpNote"          .s:fmt_none    .s:fg_magenta.s:bg_none
-exe "hi! helpVim"           .s:fmt_none    .s:fg_magenta.s:bg_none
-exe "hi! helpHyperTextJump" .s:fmt_undr    .s:fg_blue   .s:bg_none
-exe "hi! helpHyperTextEntry".s:fmt_none    .s:fg_green  .s:bg_none
-exe "hi! vimIsCommand"      .s:fmt_none    .s:fg_base00 .s:bg_none
-exe "hi! vimSynMtchOpt"     .s:fmt_none    .s:fg_yellow .s:bg_none
-exe "hi! vimSynType"        .s:fmt_none    .s:fg_cyan   .s:bg_none
-exe "hi! vimHiLink"         .s:fmt_none    .s:fg_blue   .s:bg_none
-exe "hi! vimHiGroup"        .s:fmt_none    .s:fg_blue   .s:bg_none
-exe "hi! vimGroup"          .s:fmt_undb    .s:fg_blue   .s:bg_none
+exe "hi! vimCommentString"  .s:style(""            ,s:violet ,s:none)
+exe "hi! vimCommand"        .s:style(""            ,s:yellow ,s:none)
+exe "hi! vimCmdSep"         .s:style(s:b           ,s:blue   ,s:none)
+exe "hi! helpExample"       .s:style(""            ,s:base1  ,s:none)
+exe "hi! helpOption"        .s:style(""            ,s:cyan   ,s:none)
+exe "hi! helpNote"          .s:style(""            ,s:magenta,s:none)
+exe "hi! helpVim"           .s:style(""            ,s:magenta,s:none)
+exe "hi! helpHyperTextJump" .s:style(s:u           ,s:blue   ,s:none)
+exe "hi! helpHyperTextEntry".s:style(""            ,s:green  ,s:none)
+exe "hi! vimIsCommand"      .s:style(""            ,s:base00 ,s:none)
+exe "hi! vimSynMtchOpt"     .s:style(""            ,s:yellow ,s:none)
+exe "hi! vimSynType"        .s:style(""            ,s:cyan   ,s:none)
+exe "hi! vimHiLink"         .s:style(""            ,s:blue   ,s:none)
+exe "hi! vimHiGroup"        .s:style(""            ,s:blue   ,s:none)
+exe "hi! vimGroup"          .s:style(s:u.s:b       ,s:blue   ,s:none)
 
 " diff highlighting
 hi! link diffAdded Statement

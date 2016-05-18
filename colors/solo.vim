@@ -6,7 +6,6 @@ endif
 
 let colors_name="solo"
 
-let s:vmode       = "cterm"
 let s:base03      = "8"
 let s:base02      = "0"
 let s:base01      = "10"
@@ -26,14 +25,14 @@ let s:green       = "2"
 let s:back        = "NONE"
 
 " Formatting options and null values for passthrough effect
-let s:none            = "NONE"
-let s:t_none          = "NONE"
-let s:n               = "NONE"
-let s:c               = ",undercurl"
-let s:r               = ",reverse"
-let s:s               = ",standout"
-let s:ou              = ""
-let s:ob              = ""
+let s:none        = "NONE"
+let s:t_none      = "NONE"
+let s:n           = "NONE"
+let s:c           = ",undercurl"
+let s:r           = ",reverse"
+let s:s           = ",standout"
+let s:ou          = ""
+let s:ob          = ""
 
 let s:b           = ",bold"
 let s:bb          = ""
@@ -49,7 +48,7 @@ function s:style(fmt, fg, bg)
 endfunction
 
 " Basic highlighting
-exe "hi! Normal"         .s:style("", s:base0, s:back)
+"exe "hi! Normal"         .s:style("", s:base0, s:back)
 
 exe "hi! Comment"        .s:style(s:i, s:base01, s:none)
 "       *Comment         any comment
@@ -109,7 +108,7 @@ exe "hi! Todo"           .s:style(s:b, s:magenta, s:none)
 "       *Todo            anything that needs extra attention; mostly the
 "                        keywords TODO FIXME and XXX
 
-" Extended highlighting)
+" Extended highlighting
 exe "hi! SpecialKey"     .s:style(s:b          ,s:base00 ,s:base02)
 exe "hi! NonText"        .s:style(s:b          ,s:base00 ,s:none)
 exe "hi! StatusLine"     .s:style(s:r.s:bb     ,s:base1  ,s:base02)
@@ -134,7 +133,7 @@ exe "hi! DiffAdd"        .s:style(""           ,s:green  ,s:base02)
 exe "hi! DiffChange"     .s:style(""           ,s:yellow ,s:base02)
 exe "hi! DiffDelete"     .s:style(""           ,s:red    ,s:base02)
 exe "hi! DiffText"       .s:style(""           ,s:blue   ,s:base02)
-exe "hi! SignColumn"     .s:style(""           ,s:base0  ,s:none)
+exe "hi! SignColumn"     .s:style(""           ,s:base0  ,s:base02)
 exe "hi! Conceal"        .s:style(""           ,s:blue   ,s:none)
 exe "hi! SpellBad"       .s:style(s:c          ,s:none   ,s:none)
 exe "hi! SpellCap"       .s:style(s:c          ,s:none   ,s:none)

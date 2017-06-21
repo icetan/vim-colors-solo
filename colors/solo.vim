@@ -41,6 +41,12 @@ let s:u           = ",underline"
 
 let s:i           = ",italic"
 
+if &background == 'dark'
+  let s:bglighter = s:base02
+else
+  let s:bglighter = s:base2
+endif
+
 function s:style(fmt, fg, bg)
   return " gui=NONE".a:fmt." cterm=NONE".a:fmt." term=NONE".a:fmt
       \ ." guifg=".a:fg." ctermfg=".a:fg
@@ -109,10 +115,10 @@ exe "hi! Todo"           .s:style(s:b, s:magenta, s:none)
 "                        keywords TODO FIXME and XXX
 
 " Extended highlighting
-exe "hi! SpecialKey"     .s:style(s:b          ,s:base00 ,s:base02)
+exe "hi! SpecialKey"     .s:style(s:b          ,s:base00 ,s:bglighter)
 exe "hi! NonText"        .s:style(s:b          ,s:base00 ,s:none)
-exe "hi! StatusLine"     .s:style(s:r.s:bb     ,s:base1  ,s:base02)
-exe "hi! StatusLineNC"   .s:style(s:r.s:bb     ,s:base00 ,s:base02)
+exe "hi! StatusLine"     .s:style(s:r.s:bb     ,s:base1  ,s:bglighter)
+exe "hi! StatusLineNC"   .s:style(s:r.s:bb     ,s:base00 ,s:bglighter)
 exe "hi! Visual"         .s:style(""           ,s:none   ,s:base2)
 exe "hi! Directory"      .s:style(""           ,s:blue   ,s:none)
 exe "hi! ErrorMsg"       .s:style(s:r          ,s:red    ,s:none)
@@ -120,35 +126,35 @@ exe "hi! IncSearch"      .s:style(s:s          ,s:orange ,s:none)
 exe "hi! Search"         .s:style(s:r          ,s:yellow ,s:none)
 exe "hi! MoreMsg"        .s:style(""           ,s:blue   ,s:none)
 exe "hi! ModeMsg"        .s:style(""           ,s:blue   ,s:none)
-exe "hi! LineNr"         .s:style(""           ,s:base01 ,s:base02)
+exe "hi! LineNr"         .s:style(""           ,s:base01 ,s:bglighter)
 exe "hi! Question"       .s:style(s:b          ,s:cyan   ,s:none)
-exe "hi! VertSplit"      .s:style(s:r.s:bb     ,s:base00 ,s:base02)
+exe "hi! VertSplit"      .s:style(s:r.s:bb     ,s:base00 ,s:bglighter)
 exe "hi! Title"          .s:style(s:b          ,s:orange ,s:none)
-exe "hi! VisualNOS"      .s:style(s:s          ,s:none   ,s:base02)
+exe "hi! VisualNOS"      .s:style(s:s          ,s:none   ,s:bglighter)
 exe "hi! WarningMsg"     .s:style(s:b          ,s:red    ,s:none)
-exe "hi! WildMenu"       .s:style(s:r.s:bb     ,s:base2  ,s:base02)
-exe "hi! Folded"         .s:style(s:u.s:b      ,s:base0  ,s:base02)
-exe "hi! FoldColumn"     .s:style(""           ,s:base0  ,s:base02)
-exe "hi! DiffAdd"        .s:style(""           ,s:green  ,s:base02)
-exe "hi! DiffChange"     .s:style(""           ,s:yellow ,s:base02)
-exe "hi! DiffDelete"     .s:style(""           ,s:red    ,s:base02)
-exe "hi! DiffText"       .s:style(""           ,s:blue   ,s:base02)
-exe "hi! SignColumn"     .s:style(""           ,s:base0  ,s:base02)
+exe "hi! WildMenu"       .s:style(s:r.s:bb     ,s:base2  ,s:bglighter)
+exe "hi! Folded"         .s:style(s:u.s:b      ,s:base0  ,s:bglighter)
+exe "hi! FoldColumn"     .s:style(""           ,s:base0  ,s:bglighter)
+exe "hi! DiffAdd"        .s:style(""           ,s:green  ,s:bglighter)
+exe "hi! DiffChange"     .s:style(""           ,s:yellow ,s:bglighter)
+exe "hi! DiffDelete"     .s:style(""           ,s:red    ,s:bglighter)
+exe "hi! DiffText"       .s:style(""           ,s:blue   ,s:bglighter)
+exe "hi! SignColumn"     .s:style(""           ,s:base0  ,s:bglighter)
 exe "hi! Conceal"        .s:style(""           ,s:blue   ,s:none)
 exe "hi! SpellBad"       .s:style(s:c          ,s:none   ,s:none)
 exe "hi! SpellCap"       .s:style(s:c          ,s:none   ,s:none)
 exe "hi! SpellRare"      .s:style(s:c          ,s:none   ,s:none)
 exe "hi! SpellLocal"     .s:style(s:c          ,s:none   ,s:none)
-exe "hi! Pmenu"          .s:style(s:r.s:bb     ,s:base0  ,s:base02)
+exe "hi! Pmenu"          .s:style(s:r.s:bb     ,s:base0  ,s:bglighter)
 exe "hi! PmenuSel"       .s:style(s:r.s:bb     ,s:base01 ,s:base2)
 exe "hi! PmenuSbar"      .s:style(s:r.s:bb     ,s:base2  ,s:base0)
 exe "hi! PmenuThumb"     .s:style(s:r.s:bb     ,s:base0  ,s:base03)
-exe "hi! TabLine"        .s:style(s:u          ,s:base0  ,s:base02)
-exe "hi! TabLineFill"    .s:style(s:u          ,s:base0  ,s:base02)
+exe "hi! TabLine"        .s:style(s:u          ,s:base0  ,s:bglighter)
+exe "hi! TabLineFill"    .s:style(s:u          ,s:base0  ,s:bglighter)
 exe "hi! TabLineSel"     .s:style(s:r.s:bb     ,s:base01 ,s:base2)
-exe "hi! CursorColumn"   .s:style(""           ,s:none   ,s:base02)
-exe "hi! CursorLine"     .s:style(s:ou         ,s:none   ,s:base02)
-exe "hi! ColorColumn"    .s:style(""           ,s:none   ,s:base02)
+exe "hi! CursorColumn"   .s:style(""           ,s:none   ,s:bglighter)
+exe "hi! CursorLine"     .s:style(s:ou         ,s:none   ,s:bglighter)
+exe "hi! ColorColumn"    .s:style(""           ,s:none   ,s:bglighter)
 exe "hi! Cursor"         .s:style(""           ,s:base03 ,s:base0)
 hi! link lCursor Cursor
 exe "hi! MatchParen"     .s:style(s:b          ,s:red    ,s:base01)

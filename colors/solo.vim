@@ -47,7 +47,7 @@ else
   let s:bglighter = s:base2
 endif
 
-function s:style(fmt, fg, bg)
+function! s:style(fmt, fg, bg)
   return " gui=NONE".a:fmt." cterm=NONE".a:fmt." term=NONE".a:fmt
       \ ." guifg=".a:fg." ctermfg=".a:fg
       \ ." guibg=".a:bg." ctermbg=".a:bg
